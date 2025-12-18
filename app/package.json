@@ -17,7 +17,14 @@
   "dependencies": {
     "@capacitor/android": "^8.0.0",
     "@capacitor/core": "^8.0.0",
+    "@capacitor/splash-screen": "^8.0.0",
+    "@iconify-json/solar": "^1.2.5",
+    "@iconify-json/tabler": "^1.2.24",
+    "@iconify/vue": "^5.0.0",
+    "@vueuse/core": "^14.1.0",
+    "mini-k-tailwind": "^1.1.2",
     "pinia": "^3.0.4",
+    "sass": "^1.97.0",
     "vue": "^3.5.25",
     "vue-router": "^4.6.3"
   },

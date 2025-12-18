@@ -1,7 +1,9 @@
 <template>
-  <div class="d-flex flex-column width-full height-full">
-    <RouterView />
-  </div>
+    <div class="d-flex flex-column gap-4 width-full height-full">
+        <main>
+            <RouterView />
+        </main>
+    </div>
 </template>
 
 <script setup lang="ts">
