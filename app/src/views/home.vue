@@ -12,7 +12,7 @@
 
             <RouterLink style="width: 160px;"
                 class="button-style text-white text-center px-6 font-size-5 bg-neutral-500 radius-10 py-2 font-500"
-                to="/">
+                to="/humanMode">
                 joystick
             </RouterLink>
 
