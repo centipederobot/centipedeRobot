@@ -130,6 +130,47 @@
                     <h3>hotspot setting</h3>
                 </div>
             </template>
+            <div class="d-flex flex-column gap-4 width-full pa-2">
+                <div class="width-full d-flex flex-space-between gap-4 px-2 py-2 bg-neutral-400 radius-2">
+                    <div class="d-flex align-center gap-2">
+                        <img src="/images/robot.jpg" class="avatar radius-3" alt="" />
+                        <strong>robot 1</strong>
+                    </div>
+                    <div class="d-flex flex-space-between gap-2">
+                        <button
+                            class="button-style-success px-4 py-2 radius-2 d-flex flex-center gap-1 border-none outline-none bg-emerald-500 text-white">
+                            connect
+                            <Icon icon="solar:bluetooth-wave-bold" width="15" />
+                        </button>
+                    </div>
+                </div>
+                <div class="width-full d-flex flex-space-between gap-4 px-2 py-2 bg-neutral-400 radius-2">
+                    <div class="d-flex align-center gap-2">
+                        <img src="/images/robot.jpg" class="avatar radius-3" alt="" />
+                        <strong>robot 2</strong>
+                    </div>
+                    <div class="d-flex flex-space-between gap-2">
+                        <button
+                            class="button-style-success px-4 py-2 radius-2 d-flex flex-center gap-1 border-none outline-none bg-emerald-500 text-white">
+                            connect
+                            <Icon icon="solar:bluetooth-wave-bold" width="15" />
+                        </button>
+                    </div>
+                </div>
+                <div class="width-full d-flex flex-space-between gap-4 px-2 py-2 bg-neutral-400 radius-2">
+                    <div class="d-flex align-center gap-2">
+                        <img src="/images/robot.jpg" class="avatar radius-3" alt="" />
+                        <strong>robot 3</strong>
+                    </div>
+                    <div class="d-flex flex-space-between gap-2">
+                        <button
+                            class="button-style-success px-4 py-2 radius-2 d-flex flex-center gap-1 border-none outline-none bg-emerald-500 text-white">
+                            connect
+                            <Icon icon="solar:bluetooth-wave-bold" width="15" />
+                        </button>
+                    </div>
+                </div>
+            </div>
         </Dialog>
     </div>
 </template>

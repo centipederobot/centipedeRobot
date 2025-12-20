@@ -53,7 +53,7 @@ onUnmounted(() => window.removeEventListener("keydown", handleKey));
     min-width: 400px;
     max-width: 600px;
     height: fit-content;
-    max-height: 300px;
+    max-height: 280px !important;
     background: #1f1f1f;
     border-radius: 14px;
     padding: 18px;
