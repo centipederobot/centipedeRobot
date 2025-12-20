@@ -8,8 +8,10 @@ export const useLanguageStore = defineStore("useLanguageStore", () => {
     );
 
     const toggleLanguage = () => {
+        document.body.classList.remove(`font-${language.value}`);
         language.value = language.value === "us" ? "fa" : "us";
         saveToLocalStorage();
+        document.body.classList.add(`font-${language.value}`);
     };
 
     const languageIcon = computed(() => {

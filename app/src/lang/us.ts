@@ -10,7 +10,6 @@ export default {
     joystick: "joystick:",
     ps4: "ps4",
     ps5: "ps5",
-    save: "save",
     info: "info",
     version: "Version",
     hotspot: "hotspot setting",

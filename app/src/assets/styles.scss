@@ -3,36 +3,68 @@
   src: url('./Fonts/Technor-Variable.ttf');
 }
 
-body {
-  font-family: 'technor', sans-serif !important;
+@font-face {
+  font-family: 'irani-bold';
+  src: url('./Fonts/Kohinoor\ Arabic\ Bold.ttf');
 }
 
-button {
+@font-face {
+  font-family: 'irani-regular';
+  src: url('./Fonts/Kohinoor\ Arabic\ Regular.ttf');
+}
+.font-us {
   font-family: 'technor', sans-serif !important;
+  pre {
+    font-family: 'technor', sans-serif !important;
+  }
+  button {
+    font-family: 'technor', sans-serif !important;
+  }
+}
+.font-fa {
+  font-family: 'irani-regular', sans-serif !important;
+  pre {
+    font-family: 'irani-regular', sans-serif !important;
+  }
+  button {
+    font-family: 'irani-regular', sans-serif !important;
+  }
+}
+body {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+// حالت تاریک
+body.theme-dark {
+  background-color: #111; // معادل bg-neutral-900
+  color: #fff; // متن سفید
+}
+
+// حالت روشن
+body.theme-light {
+  background-color: #f5f5f5; // معادل bg-neutral-100
+  color: #000; // متن مشکی
 }
 
 .top {
   top: 8px;
 }
-
 .left {
   left: 8px;
 }
-
 .bottom {
   bottom: 16px;
 }
-
 .center {
   top: 0;
   bottom: 0;
 }
-
 .center-2 {
   left: 0;
   right: 0;
 }
-
 .right {
   right: 5px;
 }
@@ -47,17 +79,32 @@ button {
   transition: all 0.18s ease;
   transform: translateZ(0);
   box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+  -webkit-transition: all 0.18s ease;
+  -moz-transition: all 0.18s ease;
+  -ms-transition: all 0.18s ease;
+  -o-transition: all 0.18s ease;
 }
 
-.button-style:hover {
+body.theme-dark .button-style:hover {
   background-color: rgba(255, 255, 255, 0.12);
   box-shadow: 0 0 3px rgba(255, 255, 255, 0.18);
 }
 
-.button-style:active {
+body.theme-dark .button-style:active {
   transform: scale(0.94);
   background-color: rgba(255, 255, 255, 0.18);
   box-shadow: 0 0 3px rgba(255, 255, 255, 0.25);
+}
+
+body.theme-light .button-style:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.12);
+}
+
+body.theme-light .button-style:active {
+  transform: scale(0.94);
+  background-color: rgba(0, 0, 0, 0.12);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.18);
 }
 
 .button-style-2 {
@@ -68,18 +115,38 @@ button {
   user-select: none;
   transition: all 0.18s ease;
   transform: translateZ(0);
-  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
 }
 
-.button-style-2:hover {
-  background-color: rgba(0, 0, 0, 1); /* مشکی کامل */
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.18); /* سایه مشکی */
+body.theme-dark .button-style-2 {
+  background-color: #2d2d2d; // bg-neutral-700
+  color: #fff;
 }
 
-.button-style-2:active {
+body.theme-light .button-style-2 {
+  background-color: oklch(0.97 0 0); // bg-neutral-200
+  color: #000;
+}
+
+body.theme-dark .button-style-2:hover {
+  background-color: rgba(0, 0, 0, 1);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.18);
+}
+
+body.theme-dark .button-style-2:active {
   transform: scale(0.94);
-  background-color: rgba(0, 0, 0, 0.85); /* مشکی کمی روشن‌تر */
+  background-color: rgba(0, 0, 0, 0.85);
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+}
+
+body.theme-light .button-style-2:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.12);
+}
+
+body.theme-light .button-style-2:active {
+  transform: scale(0.94);
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.18);
 }
 
 .button-style-success {
@@ -90,16 +157,27 @@ button {
   user-select: none;
   transition: all 0.18s ease;
   transform: translateZ(0);
-  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
-  &:hover {
-    background-color: rgba($color: #016630, $alpha: 0.9); /* مشکی کامل */
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.18); /* سایه مشکی */
-  }
-  &:active {
-    transform: scale(0.94);
-    background-color: rgba($color: #032e15, $alpha: 0.8); /* مشکی کمی روشن‌تر */
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
-  }
+}
+
+body.theme-dark .button-style-success {
+  background-color: #016630;
+  color: #fff;
+}
+
+body.theme-light .button-style-success {
+  background-color: #4caf50;
+  color: #000;
+}
+
+body.theme-dark .button-style-success:hover {
+  background-color: rgba(1, 102, 48, 0.9);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.18);
+}
+
+body.theme-dark .button-style-success:active {
+  transform: scale(0.94);
+  background-color: rgba(3, 46, 21, 0.8);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
 }
 
 .avatar {

@@ -1,6 +1,6 @@
 <template>
     <div v-if="modelValue" class="dialog-backdrop" @click="close">
-        <div class="dialog-container" @click.stop>
+        <div class="dialog-container" :class="theme.colors === 'black' ? 'dialog-dark' : 'dialog-light'" @click.stop>
             <header class="dialog-header">
                 <slot name="title" />
             </header>
@@ -14,12 +14,11 @@
 
 <script setup lang="ts">
 import { onMounted, onUnmounted } from "vue";
+import { useThemeStore } from "@/stores/useTheme";
 
-const props = defineProps<{
-    modelValue: boolean;
-}>();
-
+const props = defineProps<{ modelValue: boolean }>();
 const emit = defineEmits(["dialog:close"]);
+const theme = useThemeStore();
 
 const close = () => {
     emit("dialog:close", false);
@@ -54,11 +53,23 @@ onUnmounted(() => window.removeEventListener("keydown", handleKey));
     max-width: 600px;
     height: fit-content;
     max-height: 280px !important;
-    background: #1f1f1f;
     border-radius: 14px;
     padding: 18px;
     animation: scaleIn 0.2s ease;
+}
+
+/* حالت تاریک */
+.dialog-dark {
+    background: #1f1f1f;
+    color: #fff;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+/* حالت روشن */
+.dialog-light {
+    background: #f5f5f5;
+    color: #000;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
 .dialog-header {
@@ -68,12 +79,10 @@ onUnmounted(() => window.removeEventListener("keydown", handleKey));
 .dialog-title {
     margin: 0;
     font-size: 18px;
-    color: white;
     font-weight: 600;
 }
 
 .dialog-body {
-    color: #e5e5e5;
     font-size: 15px;
     margin-bottom: 18px;
 }
@@ -87,15 +96,27 @@ onUnmounted(() => window.removeEventListener("keydown", handleKey));
 .dialog-btn {
     padding: 8px 16px;
     border-radius: 8px;
-    background: #3a3a3a;
-    color: white;
     border: none;
     cursor: pointer;
     transition: 0.15s ease;
 }
 
-.dialog-btn:hover {
+.dialog-dark .dialog-btn {
+    background: #3a3a3a;
+    color: white;
+}
+
+.dialog-dark .dialog-btn:hover {
     background: #4a4a4a;
+}
+
+.dialog-light .dialog-btn {
+    background: #e0e0e0;
+    color: black;
+}
+
+.dialog-light .dialog-btn:hover {
+    background: #d0d0d0;
 }
 
 .dialog-btn:active {

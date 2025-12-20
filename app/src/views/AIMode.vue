@@ -3,6 +3,7 @@ import { useDevicesList, useUserMedia, useFullscreen, useToggle, useSpeechRecogn
 import { reactive, shallowRef, useTemplateRef, watchEffect, ref } from 'vue'
 import { Icon } from '@iconify/vue';
 import { RouterLink } from 'vue-router';
+import { useThemeStore } from '@/stores/useTheme';
 
 const currentCamera = shallowRef<string>()
 
@@ -65,47 +66,53 @@ const scrollContainer = ref<HTMLDivElement | null>(null)
 
 // گرفتن وضعیت اسکرول با VueUse
 const { x, arrivedState } = useScroll(scrollContainer)
+const theme = useThemeStore();
 </script>
 
 <template>
     <div ref="container"
-        class="d-flex width-window overflow-hidden flex-center height-window flex-column gap-4 text-center">
+        class="d-flex width-window overflow-hidden flex-center height-window flex-column gap-4 text-center"
+        :class="theme.backgroundClass">
         <video ref="video" autoplay class="width-full position-relative" />
+
         <RouterLink to="/"
             class="button-style-2 position-absolute top left border-none outline-none d-flex align-flex-start radius-2 bg-neutral-700">
-            <Icon icon="solar:arrow-left-linear" class="text-white" width="35" />
+            <Icon icon="solar:arrow-left-linear" width="35" :class="theme.switchPrimaryClass" />
         </RouterLink>
+
         <div class="bottom position-absolute d-flex flex-center gap-1 flex-column width-full">
             <div class="scroll-wrapper" style="z-index: 1000 !important;">
                 <div ref="scrollContainer" class="d-flex align-center gap-4 pa-2 overflow-x-auto scroll-container"
                     style="width: 100%; z-index: 1000 !important;">
-                    <button
-                        class="button-style-2 d-flex pa-2 text-white flex-center radius-20 bg-neutral-700 border-none outline-none">
+                    <button class="button-style-2 d-flex pa-2 flex-center radius-20 border-none outline-none"
+                        :class="[theme.switchPrimaryClass, theme.colors === 'black' ? 'bg-neutral-700' : 'bg-neutral-200']">
                         {{ $t('ai.forward') }}
                     </button>
-                    <button
-                        class="button-style-2 d-flex pa-2 text-white flex-center radius-20 bg-neutral-700 border-none outline-none">
+                    <button class="button-style-2 d-flex pa-2 flex-center radius-20 border-none outline-none"
+                        :class="[theme.switchPrimaryClass, theme.colors === 'black' ? 'bg-neutral-700' : 'bg-neutral-200']">
                         {{ $t('ai.backward') }}
                     </button>
-                    <button
-                        class="button-style-2 d-flex pa-2 text-white flex-center radius-20 bg-neutral-700 border-none outline-none">
+                    <button class="button-style-2 d-flex pa-2 flex-center radius-20 border-none outline-none"
+                        :class="[theme.switchPrimaryClass, theme.colors === 'black' ? 'bg-neutral-700' : 'bg-neutral-200']">
                         {{ $t('ai.turn') }}
                     </button>
-                    <button
-                        class="button-style-2 d-flex pa-2 text-white flex-center radius-20 bg-neutral-700 border-none outline-none">
+                    <button class="button-style-2 d-flex pa-2 flex-center radius-20 border-none outline-none"
+                        :class="[theme.switchPrimaryClass, theme.colors === 'black' ? 'bg-neutral-700' : 'bg-neutral-200']">
                         {{ $t('ai.forwardTurn') }}
                     </button>
-                    <button
-                        class="button-style-2 d-flex pa-2 text-white flex-center radius-20 bg-neutral-700 border-none outline-none">
+                    <button class="button-style-2 d-flex pa-2 flex-center radius-20 border-none outline-none"
+                        :class="[theme.switchPrimaryClass, theme.colors === 'black' ? 'bg-neutral-700' : 'bg-neutral-200']">
                         {{ $t('ai.jump') }}
                     </button>
                 </div>
                 <div v-if="!arrivedState.left" class="fade-left"></div>
                 <div v-if="!arrivedState.right" class="fade-right"></div>
             </div>
-            <button @click="toggleVoice"
-                :class="['button-style-2 d-flex pa-2 text-white flex-center radius-20 bg-neutral-700 border-none outline-none voice-btn', { 'recording': isListening }]"
-                style="width: fit-content;">
+
+            <button @click="toggleVoice" :class="['button-style-2 d-flex pa-2 flex-center radius-20 border-none outline-none voice-btn',
+                theme.switchPrimaryClass,
+                theme.colors === 'black' ? 'bg-neutral-700' : 'bg-neutral-200',
+                { 'recording': isListening }]" style="width: fit-content;">
                 <Icon icon="solar:microphone-3-bold" width="35" />
             </button>
         </div>
