@@ -13,28 +13,28 @@ import { CapacitorWifi } from '@capgo/capacitor-wifi'
 onMounted(async () => {
   try {
     // ۱. مقداردهی اولیه پلاگین
-    await BluetoothLe.initialize();
+    await BluetoothLe.initialize()
 
     // ۲. تحریک نمایش دیالوگ اجازه بلوتوث (مخصوص اندروید ۱۲+)
     // این متد باعث می‌شود سیستم پنجره دسترسی به Bluetooth Connect و Scan را باز کند
     await BluetoothLe.requestLEScan({
       services: [],
-    });
+    })
 
     // بلافاصله اسکن را متوقف کنید تا سیستم آزاد شود
-    await BluetoothLe.stopLEScan();
+    await BluetoothLe.stopLEScan()
 
     // ۳. درخواست مجوز لوکیشن (برای وای‌فای و بلوتوث در اندروید زیر ۱۲ الزامی است)
     await CapacitorWifi.requestPermissions({
       permissions: ['location'],
-    });
-    console.log("تمام مجوزها با موفقیت مدیریت شدند.");
+    })
+    console.log('تمام مجوزها با موفقیت مدیریت شدند.')
   } catch (error) {
     // اگر کاربر 'Deny' را بزند، کد به اینجا منتقل می‌شود
-    console.error("کاربر اجازه دسترسی نداد یا خطایی رخ داد:", error);
+    console.error('کاربر اجازه دسترسی نداد یا خطایی رخ داد:', error)
   }
-  document.body.classList.add(`font-${useLanguageStore().language}`);
-});
+  document.body.classList.add(`font-${useLanguageStore().language}`)
+})
 </script>
 
 <style lang="scss" scoped></style>

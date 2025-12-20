@@ -40,9 +40,11 @@ const theme = useThemeStore()
 </script>
 
 <template>
-  <div ref="container"
+  <div
+    ref="container"
     class="d-flex width-window overflow-hidden flex-center height-window flex-column gap-4 text-center"
-    :class="theme.backgroundClass">
+    :class="theme.backgroundClass"
+  >
     <!-- ویدیو placeholder -->
     <!-- <video autoplay loop muted playsinline class="width-full position-relative">
       <source src="/videos/placeholder.gif" type="image/gif" />
@@ -50,44 +52,64 @@ const theme = useThemeStore()
     </video> -->
     <img src="../../public/videos/placeholder.gif" class="width-full position-relative" alt="" />
 
-    <RouterLink to="/"
+    <RouterLink
+      to="/"
       class="button-style-2 position-absolute top left border-none outline-none d-flex align-flex-start radius-2"
-      :class="[theme.colors === 'black' ? 'bg-neutral-700' : 'bg-neutral-200']">
+      :class="[theme.colors === 'black' ? 'bg-neutral-700' : 'bg-neutral-200']"
+    >
       <Icon icon="solar:arrow-left-linear" width="35" :class="theme.switchPrimaryClass" />
     </RouterLink>
 
     <div class="bottom position-absolute d-flex flex-center gap-1 flex-column width-full">
       <div class="scroll-wrapper" style="z-index: 1000 !important">
-        <div ref="scrollContainer" class="d-flex align-center gap-4 pa-2 overflow-x-auto scroll-container"
-          style="width: 100%; z-index: 1000 !important">
-          <button class="button-style-2 d-flex pa-2 flex-center radius-20 border-none outline-none" :class="[
-            theme.switchPrimaryClass,
-            theme.colors === 'black' ? 'bg-neutral-700' : 'bg-neutral-200',
-          ]">
+        <div
+          ref="scrollContainer"
+          class="d-flex align-center gap-4 pa-2 overflow-x-auto scroll-container"
+          style="width: 100%; z-index: 1000 !important"
+        >
+          <button
+            class="button-style-2 d-flex pa-2 flex-center radius-20 border-none outline-none"
+            :class="[
+              theme.switchPrimaryClass,
+              theme.colors === 'black' ? 'bg-neutral-700' : 'bg-neutral-200',
+            ]"
+          >
             {{ $t('ai.forward') }}
           </button>
-          <button class="button-style-2 d-flex pa-2 flex-center radius-20 border-none outline-none" :class="[
-            theme.switchPrimaryClass,
-            theme.colors === 'black' ? 'bg-neutral-700' : 'bg-neutral-200',
-          ]">
+          <button
+            class="button-style-2 d-flex pa-2 flex-center radius-20 border-none outline-none"
+            :class="[
+              theme.switchPrimaryClass,
+              theme.colors === 'black' ? 'bg-neutral-700' : 'bg-neutral-200',
+            ]"
+          >
             {{ $t('ai.backward') }}
           </button>
-          <button class="button-style-2 d-flex pa-2 flex-center radius-20 border-none outline-none" :class="[
-            theme.switchPrimaryClass,
-            theme.colors === 'black' ? 'bg-neutral-700' : 'bg-neutral-200',
-          ]">
+          <button
+            class="button-style-2 d-flex pa-2 flex-center radius-20 border-none outline-none"
+            :class="[
+              theme.switchPrimaryClass,
+              theme.colors === 'black' ? 'bg-neutral-700' : 'bg-neutral-200',
+            ]"
+          >
             {{ $t('ai.turn') }}
           </button>
-          <button class="button-style-2 d-flex pa-2 flex-center radius-20 border-none outline-none" :class="[
-            theme.switchPrimaryClass,
-            theme.colors === 'black' ? 'bg-neutral-700' : 'bg-neutral-200',
-          ]">
+          <button
+            class="button-style-2 d-flex pa-2 flex-center radius-20 border-none outline-none"
+            :class="[
+              theme.switchPrimaryClass,
+              theme.colors === 'black' ? 'bg-neutral-700' : 'bg-neutral-200',
+            ]"
+          >
             {{ $t('ai.forwardTurn') }}
           </button>
-          <button class="button-style-2 d-flex pa-2 flex-center radius-20 border-none outline-none" :class="[
-            theme.switchPrimaryClass,
-            theme.colors === 'black' ? 'bg-neutral-700' : 'bg-neutral-200',
-          ]">
+          <button
+            class="button-style-2 d-flex pa-2 flex-center radius-20 border-none outline-none"
+            :class="[
+              theme.switchPrimaryClass,
+              theme.colors === 'black' ? 'bg-neutral-700' : 'bg-neutral-200',
+            ]"
+          >
             {{ $t('ai.jump') }}
           </button>
         </div>
@@ -95,12 +117,16 @@ const theme = useThemeStore()
         <div v-if="!arrivedState.right" class="fade-right"></div>
       </div>
 
-      <button @click="toggleVoice" :class="[
-        'button-style-2 d-flex pa-2 flex-center radius-20 border-none outline-none voice-btn',
-        theme.switchPrimaryClass,
-        theme.colors === 'black' ? 'bg-neutral-700' : 'bg-neutral-200',
-        { recording: isListening },
-      ]" style="width: fit-content">
+      <button
+        @click="toggleVoice"
+        :class="[
+          'button-style-2 d-flex pa-2 flex-center radius-20 border-none outline-none voice-btn',
+          theme.switchPrimaryClass,
+          theme.colors === 'black' ? 'bg-neutral-700' : 'bg-neutral-200',
+          { recording: isListening },
+        ]"
+        style="width: fit-content"
+      >
         <Icon icon="solar:microphone-3-bold" width="35" />
       </button>
     </div>
