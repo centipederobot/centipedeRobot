@@ -99,7 +99,7 @@ const theme = useThemeStore()
         'button-style-2 d-flex pa-2 flex-center radius-20 border-none outline-none voice-btn',
         theme.switchPrimaryClass,
         theme.colors === 'black' ? 'bg-neutral-700' : 'bg-neutral-200',
-        { recording: isListening },
+        { 'recording': isListening },
       ]" style="width: fit-content">
         <Icon icon="solar:microphone-3-bold" width="35" />
       </button>
@@ -108,10 +108,16 @@ const theme = useThemeStore()
 </template>
 
 <style lang="scss" scoped>
-.voice-btn.recording {
+body.theme-dark .voice-btn.recording {
   position: relative;
   animation: pulse 1.2s infinite;
   background-color: oklch(0.145 0 0) !important;
+}
+
+body.theme-light .voice-btn.recording {
+  position: relative;
+  animation: pulse 1.2s infinite;
+  background-color: oklch(0.87 0 0) !important;
 }
 
 @keyframes pulse {
