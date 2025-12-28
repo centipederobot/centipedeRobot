@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="d-flex flex-column width-full font-technor">
 
     </div>
 </template>
