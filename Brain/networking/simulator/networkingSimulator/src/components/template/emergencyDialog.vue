@@ -42,7 +42,7 @@
 
                     <IconButton :theme="isLocked ? 'red' : 'blue'"
                         :icon="isLocked ? 'solar:shield-check-bold' : 'solar:shield-keyhole-bold'"
-                        @click="isLocked = !isLocked" icon-size="35" />
+                        @click="isLocked = !isLocked, emit('emergency', isLocked)" icon-size="35" />
                 </section>
             </Transition>
         </div>
@@ -56,7 +56,7 @@ import { Icon } from '@iconify/vue'
 import { ref, watch, onMounted } from 'vue'
 
 defineProps<{ modelValue: boolean }>()
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'emergency'])
 
 const step = ref(1)
 const isLocked = ref(false)

@@ -54,11 +54,17 @@
         </footer>
 
         <!-- Dialogs -->
-        <EmergencyDialog v-model="showEmergencyDialog" />
+        <EmergencyDialog v-model="showEmergencyDialog"
+            @emergency="emergencyActive = $event, showEmergencyDialog = false" />
         <LogsDialog v-model="showLogDialogs" :logs="logs" />
         <HotSpotDialog v-if="serviceStatus" v-model="showHotSpotDialog" :connectedRobots="connectedRobots"
             @connect="handleHotspotConnect" @open="fetchLogs" />
         <GroupCommandDialog v-model="showGroupCommandDialog" />
+        <div v-if="emergencyActive" class="emergency-overlay">
+            <p class="emergency-text font-size-8 font-bold">🚨 Emergency Mode Activated 🚨</p>
+            <p class="font-size-5">for deactivating the Emergency mode please press the button</p>
+            <IconButton @click="emergencyActive = false" theme="red" icon-size="30" icon="solar:shield-warning-bold" />
+        </div>
     </div>
 </template>
 
@@ -74,10 +80,11 @@ import HotSpotDialog from './components/template/hotSpotDialog.vue'
 import LogsDialog from './components/template/logsDialog.vue'
 import { getCommandLogs } from './apis/log'
 import { startHotspot, stopHotspot, getHotspotStatus } from './apis/hotspot'
+import { Icon } from '@iconify/vue'
 
 const theme = useThemeStore()
 const selectedRobot = ref<'r1' | 'r2' | 'r3' | string>('r1')
-
+const emergencyActive = ref(false)
 const showEmergencyDialog = ref(false)
 const showGroupCommandDialog = ref(false)
 const showHotSpotDialog = ref(false)
@@ -176,5 +183,51 @@ const connectedRobotList = computed(() => Object.keys(connectedRobots.value).fil
 
 .side-tab:active {
     transform: rotate(90deg) scale(0.95);
+}
+
+.emergency-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(2px);
+    z-index: 9998;
+    /* پایین‌تر از دکمه اضطراری */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.emergency-text {
+    color: oklch(0.637 0.237 25.331);
+    font-weight: bold;
+}
+
+.emergency-text {
+    animation: animationEmergency 2s infinite ease-in-out;
+    color: oklch(0.577 0.245 27.325);
+    /* قرمز هشدار */
+}
+
+/* تغییر رنگ بین قرمز و نارنجی */
+@keyframes animationEmergency {
+    0% {
+        color: oklch(0.577 0.245 27.325);
+        /* قرمز */
+        text-shadow: 0 0 6px rgba(239, 68, 68, 0.6);
+    }
+
+    50% {
+        color: oklch(0.646 0.222 41.116);
+        /* نارنجی */
+        text-shadow: 0 0 12px rgba(249, 115, 22, 0.8);
+    }
+
+    100% {
+        color: oklch(0.577 0.245 27.325);
+        /* دوباره قرمز */
+        text-shadow: 0 0 6px rgba(239, 68, 68, 0.6);
+    }
 }
 </style>
