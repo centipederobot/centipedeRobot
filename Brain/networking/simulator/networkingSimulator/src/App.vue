@@ -6,92 +6,18 @@
             <h1>robot network simulator</h1>
             <IconButton @click="showEmergencyDialog = true" theme="red" use-absolute direction="top: 2px; left: 2px"
                 icon-size="30" icon="solar:shield-warning-bold" />
-            <IconButton @click="showHotSpotDialog = true" style="z-index: 100 !important;" theme="blue" use-absolute
-                direction="top: 2px; right: 2px" icon-size="30" icon="solar:bluetooth-bold" />
+            <IconButton @click="showHotSpotDialog = true" theme="blue" use-absolute direction="top: 2px; right: 2px"
+                icon-size="30" icon="solar:bluetooth-bold" />
         </header>
 
         <!-- Main Content -->
         <div class="flex-1 d-flex flex-center width-full height-full position-relative flex-column">
-            <!-- Robot Card -->
-            <div class="d-flex flex-column width-full align-center transition max-width-500 pa-2 radius-5 gap-4"
-                :class="theme.colors === 'black' ? 'bg-neutral-700 text-white' : 'bg-neutral-300 text-black'">
-                <div class="d-flex flex-space-between width-full gap-4">
-                    <strong class="px-4">
-                        {{ selectedRobot == 'r1' ? 'robot 1' : selectedRobot == 'r2' ? 'robot 2' : 'robot 3' }}
-                    </strong>
-                    <div class="d-flex align-center">
-                        <strong>85%</strong>
-                        <Icon icon="mingcute:battery-3-line"
-                            :class="theme.colors === 'white' ? 'text-green-100' : 'text-green-400'" width="30" />
-                    </div>
-                </div>
-                <img src="/videos/placeholder.gif" class="width-full radius-3" />
-                <div class="d-flex flex-space-between width-full px-2 py-4 gap-2">
-                    <!-- Arrow Controller -->
-                    <div class="arrow-key-controller-container transition">
-                        <button style="width: 35px; height: 55px"
-                            class="transition-fast cursor-pointer button-style-2 border-none outline-none d-flex align-flex-start justify-center radius-2"
-                            :class="theme.colors === 'black' ? 'bg-neutral-900' : 'bg-neutral-100'">
-                            <Icon icon="solar:double-alt-arrow-up-line-duotone" width="30"
-                                :class="theme.switchPrimaryClass" />
-                        </button>
-
-                        <div class="arrow-key-controller-middle">
-                            <button style="width: 55px; height: 35px"
-                                class="transition-fast cursor-pointer button-style-2 border-none outline-none d-flex align-center justify-flex-start radius-2"
-                                :class="theme.colors === 'black' ? 'bg-neutral-900' : 'bg-neutral-100'">
-                                <Icon icon="solar:double-alt-arrow-left-line-duotone" width="30"
-                                    :class="theme.switchPrimaryClass" />
-                            </button>
-                            <button style="width: 55px; height: 35px"
-                                class="transition-fast cursor-pointer button-style-2 border-none outline-none d-flex align-center justify-flex-end radius-2"
-                                :class="theme.colors === 'black' ? 'bg-neutral-900' : 'bg-neutral-100'">
-                                <Icon icon="solar:double-alt-arrow-right-line-duotone" width="30"
-                                    :class="theme.switchPrimaryClass" />
-                            </button>
-                        </div>
-
-                        <button style="width: 35px; height: 55px"
-                            class="transition-fast cursor-pointer button-style-2 border-none outline-none d-flex align-flex-end justify-center radius-2"
-                            :class="theme.colors === 'black' ? 'bg-neutral-900' : 'bg-neutral-100'">
-                            <Icon icon="solar:double-alt-arrow-down-line-duotone" width="30"
-                                :class="theme.switchPrimaryClass" />
-                        </button>
-                    </div>
-
-                    <!-- Functional Controller -->
-                    <div class="functional-key-controller-container transition">
-                        <button
-                            class="transition-fast cursor-pointer button-style-2 border-none outline-none d-flex flex-center radius-20 pa-2"
-                            :class="theme.colors === 'black' ? 'bg-neutral-900' : 'bg-neutral-100'">
-                            <Icon icon="tabler:triangle" width="40" class="text-green-300" />
-                        </button>
-
-                        <div class="functional-key-controller-middle">
-                            <button
-                                class="transition-fast cursor-pointer button-style-2 border-none outline-none d-flex flex-center radius-20 pa-2"
-                                :class="theme.colors === 'black' ? 'bg-neutral-900' : 'bg-neutral-100'">
-                                <Icon icon="tabler:square" width="40" class="text-pink-300" />
-                            </button>
-                            <button
-                                class="transition-fast cursor-pointer button-style-2 border-none outline-none d-flex flex-center radius-20 pa-2"
-                                :class="theme.colors === 'black' ? 'bg-neutral-900' : 'bg-neutral-100'">
-                                <Icon icon="tabler:circle" width="40" class="text-red-300" />
-                            </button>
-                        </div>
-
-                        <button
-                            class="transition-fast cursor-pointer button-style-2 border-none outline-none d-flex flex-center radius-20 pa-2"
-                            :class="theme.colors === 'black' ? 'bg-neutral-900' : 'bg-neutral-100'">
-                            <Icon icon="tabler:letter-x" width="40" class="text-blue-300" />
-                        </button>
-                    </div>
-                </div>
-            </div>
+            <!-- ✅ Robot Card Component -->
+            <RobotCard :selectedRobot="selectedRobot" />
 
             <!-- Side Controls -->
             <div class="d-flex flex-column flex-center height-full gap-6 position-absolute"
-                style="bottom: 0; top: 0; left: 2px;">
+                style="bottom: 0; top: 0; left: 2px">
                 <IconButton theme="default" icon-size="30" @click="theme.toggleTheme()"
                     :icon="theme.colors == 'white' ? 'solar:moon-stars-bold' : 'solar:sun-bold'" />
                 <IconButton theme="default" icon-size="30" icon="circle-flags:fa" />
@@ -99,17 +25,9 @@
 
             <!-- Side Tabs -->
             <div class="side-tab-container">
-                <button @click="selectedRobot = 'r1'" class="side-tab"
-                    :class="selectedRobot == 'r1' ? 'bg-red-500 font-bold' : (theme.colors === 'black' ? 'bg-neutral-600' : 'bg-neutral-300')">
-                    <p>robot 1</p>
-                </button>
-                <button @click="selectedRobot = 'r2'" class="side-tab"
-                    :class="selectedRobot == 'r2' ? 'bg-red-500 font-bold' : (theme.colors === 'black' ? 'bg-neutral-600' : 'bg-neutral-300')">
-                    <p>robot 2</p>
-                </button>
-                <button @click="selectedRobot = 'r3'" class="side-tab"
-                    :class="selectedRobot == 'r3' ? 'bg-red-500 font-bold' : (theme.colors === 'black' ? 'bg-neutral-600' : 'bg-neutral-300')">
-                    <p>robot 3</p>
+                <button v-for="(r) in ['r1', 'r2', 'r3']" :key="r" @click="selectedRobot = r" class="side-tab"
+                    :class="selectedRobot === r ? 'bg-red-500 font-bold' : (theme.colors === 'black' ? 'bg-neutral-600' : 'bg-neutral-300')">
+                    <p>{{ r.replace('r', 'robot ') }}</p>
                 </button>
             </div>
         </div>
@@ -119,378 +37,46 @@
             <IconButton @click="showGroupCommandDialog = true" theme="default" use-absolute
                 direction="bottom: 2px; left: 2px" icon-size="30" icon="solar:users-group-two-rounded-bold" />
             <p>{{ new Date().getFullYear() }} &copy; copyright</p>
-            <IconButton @click="showLogDialogs = true" style="z-index: 100 !important;" theme="blue" use-absolute
-                direction="bottom: 2px; right: 2px" icon-size="30" icon="solar:info-circle-bold" />
+            <IconButton @click="showLogDialogs = true" theme="blue" use-absolute direction="bottom: 2px; right: 2px"
+                icon-size="30" icon="solar:info-circle-bold" />
         </footer>
-        <!-- dialogs -->
-        <Dialog title="Emergency mode" :model-value="showEmergencyDialog"
-            @dialog:close="showEmergencyDialog = !showEmergencyDialog">
-            <div class="dialog-content">
-                <!-- Top navigation (optional) -->
-                <div class="dialog-steps-indicator">
-                    <span :class="['step-dot', step === 1 ? 'active' : '']"></span>
-                    <span :class="['step-dot', step === 2 ? 'active' : '']"></span>
-                    <span :class="['step-dot', step === 3 ? 'active' : '']"></span>
-                </div>
 
-                <!-- Sections with smooth transition -->
-                <Transition name="step-fade-slide" mode="out-in">
-                    <!-- Section 1: Backend explanation + animated icons (Bluetooth + spinner) -->
-                    <section v-if="step === 1" key="step-1" class="dialog-section">
-                        <div class="d-flex flex-center gap-2 width-full">
-                            <Icon icon="svg-spinners:wifi-fade" :width="72" class="icon-spin-slow text-white" />
-                            <Icon icon="svg-spinners:3-dots-fade" :width="72" class="icon-spin-slow text-white" />
-                            <Icon icon="line-md:reddit-loop" :width="72" class="icon-spin-slow text-white" />
-                        </div>
-
-                        <div class="typing-block">
-                            <p v-for="(line, i) in typedBackendLines" :key="'b-' + i" class="typed-line">
-                                {{ line }}
-                            </p>
-                        </div>
-                        <button class="next-btn" @click="goNext">Next</button>
-                    </section>
-
-                    <!-- Section 2: Frontend explanation + animated icons -->
-                    <section v-else-if="step === 2" key="step-2" class="dialog-section">
-                        <div class="d-flex flex-column flex-center width-full">
-                            <Icon icon="line-md:alert-loop" :width="72" class="icon-pulse text-red-500" />
-                        </div>
-
-                        <div class="typing-block">
-                            <p v-for="(line, i) in typedFrontendLines" :key="'f-' + i" class="typed-line">
-                                {{ line }}
-                            </p>
-                        </div>
-
-                        <button class="next-btn" @click="goNext">Next</button>
-                    </section>
-
-                    <!-- Section 3: Title + image + activation button -->
-                    <section v-else key="step-3" class="dialog-section">
-                        <h3 class="section-title">Activate Emergency Mode</h3>
-
-                        <!-- Image name matches dialog name -->
-                        <img src="/images/emergency.png" alt="emergency" class="section-image" />
-
-                        <IconButton style="z-index: 100 !important;" :theme="isLocked ? 'red' : 'blue'"
-                            :use-absolute="false" direction="top: 2px; right: 2px" icon-size="30"
-                            :icon="isLocked ? 'solar:shield-check-bold' : 'solar:shield-keyhole-bold'"
-                            @click="toggleEmergency" />
-                    </section>
-                </Transition>
-            </div>
-        </Dialog>
-        <Dialog title="Logs info" :model-value="showLogDialogs" @dialog:close="showLogDialogs = false">
-            <div class="logs-dialog-content">
-                <!-- Description text -->
-                <p class="logs-description">
-                    In this section you can view the system logs. Each log includes a timestamp and a message.
-                </p>
-
-                <!-- Logs table -->
-                <div class="logs-table-container">
-                    <table class="logs-table">
-                        <thead>
-                            <tr>
-                                <th>Time</th>
-                                <th>Message</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="(log, index) in logs" :key="index">
-                                <td>{{ log.time }}</td>
-                                <td>{{ log.message }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </Dialog>
-        <Dialog title="Hotspot" :model-value="showHotSpotDialog" @dialog:close="showHotSpotDialog = !showHotSpotDialog">
-            <div class="d-flex flex-column gap-4 width-full pa-2" :class="theme.switchPrimaryClass">
-                <div v-for="item in 3" :key="item" class="width-full d-flex flex-space-between gap-4 px-2 py-2 radius-2"
-                    :class="theme.colors === 'black' ? 'bg-neutral-400' : 'bg-neutral-200'">
-                    <div class="d-flex align-center gap-2">
-                        <img src="/images/robot.jpg" class="avatar radius-3" alt="" />
-                        <strong :class="theme.switchPrimaryClass">robot {{ item }}</strong>
-                    </div>
-                    <div class="d-flex flex-space-between gap-2">
-                        <button
-                            class="button-style-success px-4 py-2 radius-2 d-flex flex-center gap-1 border-none outline-none"
-                            :class="theme.colors === 'black' ? 'bg-emerald-600 text-white' : 'bg-emerald-400 text-white'
-                                ">
-                            connect
-                            <Icon icon="solar:bluetooth-wave-bold" width="15" />
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </Dialog>
-        <Dialog title="Group Command" :model-value="showGroupCommandDialog"
-            @dialog:close="showGroupCommandDialog = !showGroupCommandDialog">
-            <div class="dialog-content">
-                <Transition name="step-fade-slide" mode="out-in">
-                    <!-- Section 1: Introduction -->
-                    <section v-if="step === 1" key="step-1" class="dialog-section">
-                        <div class="d-flex flex-center gap-2 width-full">
-                            <Icon icon="svg-spinners:wifi-fade" :width="72" class="icon-spin-slow text-blue-400" />
-                            <Icon icon="svg-spinners:3-dots-fade" :width="72" class="icon-spin-slow text-green-400" />
-                            <div class="d-flex flex-column gap-1">
-                                <Icon icon="line-md:reddit-loop" :width="72" class="icon-spin-slow text-neutral-400" />
-                                <p>robot leader</p>
-                            </div>
-                            <Icon icon="svg-spinners:3-dots-fade" :width="72" class="icon-spin-slow text-green-400" />
-                            <div class="d-flex flex-column gap-1">
-                                <Icon icon="line-md:reddit-loop" :width="48" class="icon-spin-slow text-neutral-400" />
-                                <Icon icon="line-md:reddit-loop" :width="48" class="icon-spin-slow text-neutral-400" />
-                            </div>
-                        </div>
-
-                        <div class="typing-block">
-                            <p v-for="(line, i) in typedGroupLines" :key="'g-' + i" class="typed-line">
-                                {{ line }}
-                            </p>
-                        </div>
-
-                        <button class="next-btn" @click="goNext">Next</button>
-                    </section>
-
-                    <!-- Section 2: Select leader + command -->
-                    <section v-else key="step-2" class="dialog-section">
-                        <h3 class="section-title">Configure Group Command</h3>
-
-                        <div class="form-block">
-                            <!-- Leader Robot Select -->
-                            <label class="form-label">Leader Robot:</label>
-                            <select v-model="leaderRobot" class="form-select">
-                                <option disabled value="">Select a robot</option>
-                                <option value="r1">Robot 1</option>
-                                <option value="r2">Robot 2</option>
-                                <option value="r3">Robot 3</option>
-                            </select>
-                        </div>
-
-                        <div class="form-block">
-                            <!-- Command Select -->
-                            <label class="form-label">Command:</label>
-                            <select v-model="groupCommand" class="form-select">
-                                <option disabled value="">Select a command</option>
-                                <option value="forward">Forward</option>
-                                <option value="backward">Backward</option>
-                                <option value="rotate">Rotate</option>
-                                <option value="rotate-reverse">Rotate Reverse</option>
-                                <option value="turn-left">Turn Left</option>
-                                <option value="turn-right">Turn Right</option>
-                                <option value="increase-speed">Increase Speed</option>
-                                <option value="decrease-speed">Decrease Speed</option>
-                            </select>
-                        </div>
-
-                        <button class="next-btn" @click="applyGroupCommand">Apply Command</button>
-                    </section>
-                </Transition>
-            </div>
-        </Dialog>
+        <!-- Dialogs -->
+        <EmergencyDialog v-model="showEmergencyDialog" />
+        <LogsDialog v-model="showLogDialogs" :logs="logs" />
+        <HotSpotDialog v-model="showHotSpotDialog" />
+        <GroupCommandDialog v-model="showGroupCommandDialog" />
     </div>
 </template>
 
 <script setup lang="ts">
-import Dialog from './components/dialog.vue';
-import IconButton from './components/iconButton.vue';
-import { useThemeStore } from './stores/useTheme';
-import { Icon } from '@iconify/vue';
-import { onMounted, ref, watch } from 'vue'
+import { ref } from 'vue'
+import { useThemeStore } from './stores/useTheme'
 
-const selectedRobot = ref('r1') // default robot is r1
+import IconButton from './components/iconButton.vue'
+import RobotCard from './components/template/robotCard.vue'
+import EmergencyDialog from './components/template/emergencyDialog.vue'
+import GroupCommandDialog from './components/template/GroupCommandDialog.vue'
+import HotSpotDialog from './components/template/hotSpotDialog.vue'
+import LogsDialog from './components/template/logsDialog.vue'
+
 const theme = useThemeStore()
+const selectedRobot = ref<'r1' | 'r2' | 'r3' | string>('r1')
 
-// Dialog states
-const showLogDialogs = ref(false);
-const showGroupCommandDialog = ref(false);
-const showHotSpotDialog = ref(false);
-const showEmergencyDialog = ref(false);
+const showEmergencyDialog = ref(false)
+const showGroupCommandDialog = ref(false)
+const showHotSpotDialog = ref(false)
+const showLogDialogs = ref(false)
 
-// Stepper for emergency & group dialogs
-const step = ref(1)
-const isLocked = ref(false)
-
-// Emergency dialog lines
-const backendLines = [
-    'In the backend, when emergency mode is activated, a global event is published.',
-    'All robots receive an immediate stop command.',
-    'Communication channels (e.g., MQTT/WebSocket) are restricted.',
-    'Each robot status in the database changes to emergency.',
-    'Logs are recorded and an operation ID is stored for tracking.'
-]
-
-const frontendLines = [
-    'On the frontend, robot cards turn red with a warning state.',
-    'Movement controls and buttons are disabled.',
-    'A warning message is displayed at the top of the dashboard.',
-    'The logs section records and highlights a new emergency event.',
-    'Exiting emergency mode is only possible via a confirmation button.'
-]
-
-// Group command intro lines
-const groupLines = [
-    'Group Command allows you to control multiple robots at once.',
-    'You can assign a leader robot and synchronize commands for the group.',
-    'This ensures coordinated movement and efficient task execution.'
-]
-
-/* Typed output for each section */
-const typedBackendLines = ref<string[]>([])
-const typedFrontendLines = ref<string[]>([])
-const typedGroupLines = ref<string[]>([])
-
-/* Typing effect line by line */
-function typeLines(sourceLines: string[], target: typeof typedBackendLines | typeof typedFrontendLines | typeof typedGroupLines, speed = 20) {
-    target.value = []
-    let lineIndex = 0
-    let charIndex = 0
-
-    const tick = () => {
-        const currentLine = sourceLines[lineIndex] ?? ''
-        const currentTyped = (target.value[lineIndex] ?? '')
-
-        if (currentTyped.length === 0 && charIndex === 0) {
-            target.value.push('')
-        }
-
-        if (charIndex < currentLine.length) {
-            target.value[lineIndex] = currentLine.slice(0, charIndex + 1)
-            charIndex++
-        } else {
-            lineIndex++
-            charIndex = 0
-            if (lineIndex >= sourceLines.length) return
-        }
-
-        requestAnimationFrame(() => {
-            const container = document.querySelector('.dialog-content') as HTMLElement | null
-            if (container) container.scrollTop = container.scrollHeight
-        })
-
-        setTimeout(tick, speed)
-    }
-
-    setTimeout(tick, speed)
-}
-
-/* Start typing when step changes */
-function startTypingForStep() {
-    if (step.value === 1) {
-        typeLines(backendLines, typedBackendLines)
-        typeLines(groupLines, typedGroupLines)
-    } else if (step.value === 2) {
-        typeLines(frontendLines, typedFrontendLines)
-    }
-}
-
-onMounted(startTypingForStep)
-watch(step, () => startTypingForStep())
-
-function goNext() {
-    if (step.value < 3) {
-        step.value = (step.value + 1) as 1 | 2 | 3
-    }
-}
-
-function toggleEmergency() {
-    isLocked.value = !isLocked.value
-}
-
-// Example logs
 const logs = ref([
     { time: '2025-12-29 22:10', message: 'System started.' },
     { time: '2025-12-29 22:12', message: 'Connection established with robot 1.' },
     { time: '2025-12-29 22:13', message: 'Emergency mode activated.' },
     { time: '2025-12-29 22:14', message: 'Database connection checked.' },
-    { time: '2025-12-29 22:15', message: 'User logged in.' },
+    { time: '2025-12-29 22:15', message: 'User logged in.' }
 ])
-
-// Group command selections
-const leaderRobot = ref('')
-const groupCommand = ref('')
-
-function applyGroupCommand() {
-    console.log('Leader:', leaderRobot.value, 'Command:', groupCommand.value)
-    // Implement backend logic here
-}
 </script>
-
 <style scoped>
-/* کانتینر اصلی که همه کنترلرها رو نگه می‌داره */
-.controller-wrapper {
-    display: flex;
-    justify-content: space-between;
-    /* یکی سمت چپ، یکی سمت راست */
-    align-items: flex-end;
-    width: 100%;
-    padding: 1rem;
-    box-sizing: border-box;
-}
-
-/* کنترلر جهت‌ها */
-.arrow-key-controller-container {
-    width: fit-content;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 0.2rem;
-}
-
-.arrow-key-controller-middle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-}
-
-/* کنترلر دکمه‌های عملکردی */
-.functional-key-controller-container {
-    width: fit-content;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 0.1rem;
-}
-
-.functional-key-controller-container button {
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    border: none;
-    outline: none;
-    transition: all 0.2s ease;
-}
-
-.functional-key-controller-middle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-}
-
-/* هاور و اکتیو برای همه دکمه‌ها */
-.arrow-key-controller-container button,
-.functional-key-controller-container button {
-    transition: transform 0.2s ease;
-}
-
-.arrow-key-controller-container button:hover,
-.functional-key-controller-container button:hover {
-    transform: scale(1.1);
-}
-
-.arrow-key-controller-container button:active,
-.functional-key-controller-container button:active {
-    transform: scale(0.9);
-}
-
 /* تب‌های کناری */
 .side-tab-container {
     display: flex;
@@ -527,239 +113,5 @@ function applyGroupCommand() {
 
 .side-tab:active {
     transform: rotate(90deg) scale(0.95);
-}
-
-/* محتوای دیالوگ: وسط‌چین + اسکرول رو به پایین */
-.dialog-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* وسط‌چین افقی */
-    justify-content: center;
-    /* وسط‌چین عمودی */
-    text-align: center;
-    max-height: 520px;
-    overflow-y: auto;
-    /* اگر متن زیاد بود، اسکرول عمودی */
-    padding: 8px 4px;
-}
-
-/* اندیکاتور مراحل */
-.dialog-steps-indicator {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 12px;
-}
-
-.step-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 9999px;
-    background: #ccc;
-    transition: all 0.2s ease;
-}
-
-.step-dot.active {
-    background: #ef4444;
-    /* قرمز */
-    transform: scale(1.2);
-}
-
-/* ترنزیشن نرم بین جابجایی بخش‌ها */
-.step-fade-slide-enter-active,
-.step-fade-slide-leave-active {
-    transition: all 250ms ease;
-}
-
-.step-fade-slide-enter-from {
-    opacity: 0;
-    transform: translateY(8px);
-}
-
-.step-fade-slide-enter-to {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.step-fade-slide-leave-from {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.step-fade-slide-leave-to {
-    opacity: 0;
-    transform: translateY(-8px);
-}
-
-/* بخش */
-.dialog-section {
-    width: 100%;
-    max-width: 600px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* وسط‌چین */
-    justify-content: center;
-    gap: 16px;
-    padding: 8px 0;
-}
-
-/* بلوک تایپینگ چندخطی (نه تک‌خطی) */
-.typing-block {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* وسط‌چین خطوط */
-    gap: 8px;
-    width: 100%;
-}
-
-/* هر خط تایپ‌شونده */
-.typed-line {
-    display: block;
-    white-space: pre-wrap;
-    /* چندخطی و حفظ فاصله‌ها */
-    word-break: break-word;
-    /* اگر کلمات طولانی شد، بشکنه */
-    max-width: 560px;
-    text-align: center;
-}
-
-/* دکمه بعدی */
-.next-btn {
-    padding: 8px 16px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    background: #3a3a3a;
-    color: white;
-    transition: 0.2s ease;
-}
-
-.next-btn:hover {
-    background: #4a4a4a;
-}
-
-.next-btn:active {
-    transform: scale(0.96);
-}
-
-/* عنوان بخش سوم و تصویر */
-.section-title {
-    font-weight: 700;
-    font-size: 18px;
-    margin: 4px 0 2px;
-}
-
-.section-image {
-    max-width: 300px;
-    border-radius: 8px;
-    display: block;
-}
-
-.logs-dialog-content {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    max-height: 400px;
-    overflow-y: auto;
-    /* اسکرول عمودی */
-}
-
-.logs-description {
-    font-size: 14px;
-    text-align: center;
-    color: #666;
-}
-
-.logs-table-container {
-    width: 100%;
-}
-
-.logs-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.logs-table thead tr {
-    background-color: #4a4a4a;
-    color: #f5f5f5;
-}
-
-.logs-table tr:nth-child(even) {
-    background-color: #3a3a3a;
-    color: #f5f5f5;
-}
-
-.logs-table th,
-.logs-table td {
-    padding: 8px;
-    text-align: left;
-    font-size: 14px;
-}
-
-/* بدون حاشیه */
-.logs-table th {
-    font-weight: bold;
-    background: transparent;
-}
-
-.logs-table td {
-    border: none;
-}
-
-.avatar {
-    width: 40px;
-    height: 40px;
-}
-
-.button-style-success {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    user-select: none;
-    transition: all 0.18s ease;
-    transform: translateZ(0);
-}
-
-body.theme-dark .button-style-success {
-    background-color: #016630;
-    color: #fff;
-}
-
-body.theme-light .button-style-success {
-    background-color: #4caf50;
-    color: #000;
-}
-
-.button-style-success:hover {
-    background-color: rgba(1, 102, 48, 0.9);
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.18);
-}
-
-.button-style-success:active {
-    transform: scale(0.94);
-    background-color: rgba(3, 46, 21, 0.8);
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
-}
-
-.form-block {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    width: 100%;
-    max-width: 300px;
-}
-
-.form-label {
-    font-weight: bold;
-    text-align: left;
-}
-
-.form-select {
-    padding: 6px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
 }
 </style>
