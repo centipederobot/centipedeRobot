@@ -1,7 +1,7 @@
 COMMAND_SCHEMA = {
     "robotId": "string",
     "cmd": ["forward", "backward", "left", "right", "rotate", "rotate-reverse", "slow speed", "fast speed"],
-    "value": "float",
+    "value": "array[float]",
     "timeStamp": "string",  # point: this type in input must be datetime
 }
 ERROR_SCHEMA = {

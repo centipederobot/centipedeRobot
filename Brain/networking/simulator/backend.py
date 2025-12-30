@@ -19,29 +19,33 @@ mqtt_client.loop_start()
 hotspot = HotspotManager()
 
 # -------------------------------
-# داده‌های شبیه‌سازی
+# Simulation data
 # -------------------------------
 COMMANDS = ["forward", "backward", "left",
             "right", "increase_speed", "decrease_speed"]
 robots_status = {
-    "r1": {"last_command": None, "connected": True},
-    "r2": {"last_command": None, "connected": True},
-    "r3": {"last_command": None, "connected": True},
+    "r1": {"last_command": None, "connected": False},
+    "r2": {"last_command": None, "connected": False},
+    "r3": {"last_command": None, "connected": False},
 }
-command_logs = []  # تاریخچه فرمان‌ها
+command_logs = []  # command history
 
 # -------------------------------
-# فرمان‌های اجرایی هر ربات
+# Robot command API
 # -------------------------------
 
 
 @app.post("/robot/{robot_id}/command")
 async def robot_command(robot_id: str, request: Request):
     data = await request.json()
+    # Ensure value is an array of 4 numbers
+    if "value" in data and (not isinstance(data["value"], list) or len(data["value"]) != 4):
+        return JSONResponse({"error": "value must be an array of 4 numbers"}, status_code=400)
+
     topic = topics["command"].format(id=robot_id)
     mqtt_client.publish(topic, json.dumps(data))
 
-    # ثبت وضعیت و لاگ
+    # Update status and logs
     robots_status[robot_id]["last_command"] = data
     command_logs.append({
         "robot": robot_id,
@@ -52,13 +56,19 @@ async def robot_command(robot_id: str, request: Request):
     return JSONResponse({"status": "sent", "robot": robot_id, "command": data})
 
 # -------------------------------
-# ارسال فرمان گروهی
+# Group command API
 # -------------------------------
 
 
 @app.post("/group/command")
 async def group_command(request: Request):
     data = await request.json()
+    # Validate each command in group has value as array of 4 numbers
+    if "cmds" in data:
+        for cmd in data["cmds"]:
+            if "value" in cmd and (not isinstance(cmd["value"], list) or len(cmd["value"]) != 4):
+                return JSONResponse({"error": "each command value must be an array of 4 numbers"}, status_code=400)
+
     topic = topics["group"]
     mqtt_client.publish(topic, json.dumps(data))
 
@@ -93,18 +103,16 @@ async def status_hotspot():
     return JSONResponse({"status": status})
 
 # -------------------------------
-# WebRTC APIs (شبیه‌سازی)
+# WebRTC APIs (simulation)
 # -------------------------------
 
 
 @app.post("/webrtc/{robot_id}/offer")
 async def webrtc_offer(robot_id: str, request: Request):
     """
-    دریافت Offer از فرانت و برگرداندن Answer شبیه‌سازی‌شده
+    Receive Offer from frontend and return simulated Answer
     """
     data = await request.json()
-    # در حالت واقعی باید PeerConnection ساخته شود
-    # اینجا فقط شبیه‌سازی می‌کنیم
     answer = {
         "type": "answer",
         "sdp": f"fake-sdp-for-{robot_id}"
@@ -115,7 +123,7 @@ async def webrtc_offer(robot_id: str, request: Request):
 @app.get("/webrtc/{robot_id}/status")
 async def webrtc_status(robot_id: str):
     """
-    وضعیت WebRTC برای هر ربات
+    WebRTC status for each robot
     """
     return JSONResponse({
         "robot": robot_id,
@@ -126,7 +134,7 @@ async def webrtc_status(robot_id: str):
     })
 
 # -------------------------------
-# APIهای کمکی
+# Helper APIs
 # -------------------------------
 
 
