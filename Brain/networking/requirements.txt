@@ -1,4 +1,6 @@
-flask
 paho-mqtt
+fastapi
+uvicorn
+aiortc
 requests
-websockets
+jinja2

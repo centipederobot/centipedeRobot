@@ -1,0 +1,51 @@
+@font-face {
+  font-family: "technor";
+  src: url("assets/Fonts/Technor-Variable.ttf");
+}
+
+@font-face {
+  font-family: "irani-bold";
+  src: url("assets/Fonts/Kohinoor\ Arabic\ Bold.ttf");
+}
+
+@font-face {
+  font-family: "irani-regular";
+  src: url("assets/Fonts/Kohinoor\ Arabic\ Regular.ttf");
+}
+.font-us {
+  font-family: "technor", sans-serif !important;
+  pre {
+    font-family: "technor", sans-serif !important;
+  }
+  button {
+    font-family: "technor", sans-serif !important;
+  }
+}
+.font-fa {
+  font-family: "irani-regular", sans-serif !important;
+  pre {
+    font-family: "irani-regular", sans-serif !important;
+  }
+  button {
+    font-family: "irani-regular", sans-serif !important;
+  }
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  transition: all 0.5s ease;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+}
+body.theme-dark {
+  background-color: #111;
+  color: #fff;
+}
+
+body.theme-light {
+  background-color: #f5f5f5;
+  color: #000;
+}

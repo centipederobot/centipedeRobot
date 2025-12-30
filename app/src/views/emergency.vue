@@ -1,24 +1,16 @@
 <template>
-  <div
-    :dir="useLanguageStore().language == 'fa' ? 'rtl' : 'ltr'"
+  <div :dir="useLanguageStore().language == 'fa' ? 'rtl' : 'ltr'"
     class="d-flex flex-column align-center gap-2 width-window py-2 px-4 height-full position-relative"
-    :class="theme.backgroundClass"
-  >
+    :class="theme.backgroundClass">
     <h1 :class="theme.switchPrimaryClass">{{ $t('emergency.title') }}</h1>
 
-    <RouterLink
-      to="/"
+    <RouterLink to="/"
       class="button-style-2 position-absolute top left border-none outline-none d-flex align-flex-start radius-2"
-      :class="theme.colors === 'black' ? 'bg-neutral-700' : 'bg-neutral-300'"
-    >
+      :class="theme.colors === 'black' ? 'bg-neutral-700' : 'bg-neutral-300'">
       <Icon icon="solar:arrow-left-linear" width="35" :class="theme.switchPrimaryClass" />
     </RouterLink>
 
-    <img
-      src="/images/error.png"
-      class="width-full height-full max-width-300 max-height-300"
-      alt=""
-    />
+    <img src="/images/error.png" class="width-full height-full max-width-300 max-height-300" alt="" />
 
     <p class="font-size-4 width-full max-width-500" :class="theme.switchPrimaryClass">
       {{ $t('emergency.description') }}
@@ -26,28 +18,22 @@
 
     <div class="d-flex align-center gap-4">
       <!-- دکمه فعال -->
-      <button
-        @click="enabled = true"
-        class="button-style-2 text-center px-6 font-size-5 border-none outline-none radius-10 py-2 font-500"
-        :class="[
+      <button @click="enabled = true"
+        class="button-style-2 text-center px-6 font-size-5 border-none outline-none radius-10 py-2 font-500" :class="[
           enabled
             ? 'bg-red-600 text-white'
             : theme.colors === 'black'
               ? 'bg-neutral-700 text-white'
               : 'bg-neutral-200',
-        ]"
-      >
+        ]">
         {{ $t('emergency.enabled') }}
       </button>
 
       <!-- دکمه غیرفعال -->
-      <button
-        @click="enabled = false"
-        class="button-style-2 text-center px-6 font-size-5 border-none outline-none radius-10 py-2 font-500"
-        :class="[
+      <button @click="enabled = false"
+        class="button-style-2 text-center px-6 font-size-5 border-none outline-none radius-10 py-2 font-500" :class="[
           theme.colors === 'black' ? 'bg-neutral-700 text-white' : 'bg-neutral-200 text-black',
-        ]"
-      >
+        ]">
         {{ $t('emergency.disabled') }}
       </button>
     </div>
