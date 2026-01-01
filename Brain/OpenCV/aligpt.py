@@ -98,4 +98,3 @@ out = process_frame(img)
 plt.imshow(out)
 plt.axis('off')
 plt.show()
-
