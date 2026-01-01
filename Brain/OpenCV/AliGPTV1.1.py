@@ -13,7 +13,7 @@ from ultralytics import YOLO
 from torchvision.transforms import Compose
 
 # ---------- YOLO ----------
-yolo = YOLO("yolov8n.pt")
+yolo = YOLO("yolo11n.pt")
 
 # ---------- MiDaS ----------
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
