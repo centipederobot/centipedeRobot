@@ -121,16 +121,15 @@ async def process_frame(frame):
         return frame, decision
 
 
-async def main():
-    img = cv2.imread("sample.jpg")
-    print(img.shape)  # برای اطمینان
+# async def main():
+#     img = cv2.imread("sample.jpg")
+#     print(img.shape)
+#     import matplotlib.pyplot as plt
 
-    import matplotlib.pyplot as plt
+#     frame, decision = await process_frame(img)
+#     plt.imshow(frame)
+#     plt.axis('off')
+#     plt.show()
 
-    frame, decision = await process_frame(img)
-    plt.imshow(frame)
-    plt.axis('off')
-    plt.show()
-
-if __name__ == "__main__":
-    asyncio.run(main())
+# if __name__ == "__main__":
+#     asyncio.run(main())
