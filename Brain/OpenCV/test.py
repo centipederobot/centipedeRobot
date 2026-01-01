@@ -23,7 +23,7 @@ transform = midas_transforms.small_transform
 
 DEPTH_THRESHOLD = 1.0  # فاصله نزدیک (تنظیم عملی با تست)
 
-def process_frame_obstacle(frame):
+def process_frame_obstacle_dynamic(frame):
     h, w, _ = frame.shape
     frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
@@ -40,48 +40,48 @@ def process_frame_obstacle(frame):
     depth_map = depth.cpu().numpy()
 
     # ---------- پیدا کردن نزدیک‌ترین مانع ----------
-    # فقط پایین تصویر (ناحیه روبروی ربات)
-    scan_height = int(h*0.4)  # مثلا پایین 40% تصویر
-    region = depth_map[h-scan_height:h, :]  # پایین تصویر
-
+    scan_height = int(h*0.4)  # پایین 40% تصویر
+    region = depth_map[h-scan_height:h, :]
     min_val = region.min()
     min_loc = np.unravel_index(np.argmin(region), region.shape)
     cy, cx = min_loc
-    cy += h - scan_height  # تبدیل به مختصات اصلی تصویر
+    cy += h - scan_height
 
-    # پیدا کردن عرض مانع (نقاط با عمق کمتر از threshold نزدیک‌ترین مانع)
-    mask = region <= min_val + 0.05  # ±0.05 tolerance
+    # عرض مانع
+    mask = region <= min_val + 0.05
     xs = np.where(mask.any(axis=0))[0]
     if len(xs) > 0:
         x1, x2 = xs[0], xs[-1]
     else:
         x1, x2 = cx, cx
 
-    # ---------- رسم و تصمیم ----------
-    cv2.rectangle(frame, (x1, cy-scan_height//20), (x2, cy), (0,255,100), 2)  # کادر مانع
+    # ---------------- اندازه متن پویا ----------------
+    box_width = x2 - x1
+    font_scale = max(0.4, min(1.0, box_width / 200))
+    thickness = int(max(1, font_scale * 2))
 
-    # خطوط چپ و راست
-    cv2.line(frame, (0, cy), (x1, cy), (0,255,0), 2)       # سبز
-    cv2.line(frame, (x2, cy), (w, cy), (0,165,255), 2)     # نارنجی
+    # ---------- رسم خطوط و کادر ----------
+    cv2.rectangle(frame, (x1, cy-scan_height//20), (x2, cy), (0,255,100), 2)
+    cv2.line(frame, (0, cy), (x1, cy), (0,255,0), 2)
+    cv2.line(frame, (x2, cy), (w, cy), (0,165,255), 2)
 
-    # خط پایین تصویر → پایین مانع
     cam_x, cam_y = w//2, h-1
-    cv2.line(frame, (cam_x, cam_y), (cx, cy), (255,0,0), 2)  # آبی
+    cv2.line(frame, (cam_x, cam_y), (cx, cy), (255,0,0), 2)
 
-    # متن عمق
+    # عمق روی خط آبی
     mid_x, mid_y = (cam_x + cx)//2, (cam_y + cy)//2
     cv2.putText(frame, f"Depth: {min_val:.2f}", (mid_x, mid_y),
-                cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255,0,255), 2)
+                cv2.FONT_HERSHEY_SIMPLEX, font_scale, (255,0,255), thickness)
 
-    # نمایش طول خطوط کناری
+    # خطوط کناری
     cv2.putText(frame, f"L: {x1}px", (10, cy-10),
-                cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0,255,0), 2)
+                cv2.FONT_HERSHEY_SIMPLEX, font_scale, (0,255,0), thickness)
     cv2.putText(frame, f"R: {w-x2}px", (w-150, cy-10),
-                cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0,165,255), 2)
+                cv2.FONT_HERSHEY_SIMPLEX, font_scale, (0,165,255), thickness)
 
-    # تصمیم حرکتی
+    # ---------- تصمیم حرکتی ----------
     if min_val < DEPTH_THRESHOLD:
-        if (w - x2) > x1:  # مسیر کوتاه‌تر سمت راست
+        if (w - x2) > x1:
             decision = "TURN RIGHT"
         else:
             decision = "TURN LEFT"
@@ -89,7 +89,7 @@ def process_frame_obstacle(frame):
         decision = "GO FORWARD"
 
     cv2.putText(frame, f"Decision: {decision}", (30,40),
-                cv2.FONT_HERSHEY_SIMPLEX, 1, (0,255,255), 3)
+                cv2.FONT_HERSHEY_SIMPLEX, font_scale+0.4, (0,255,255), thickness+1)
 
     return frame
 
