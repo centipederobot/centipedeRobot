@@ -4,3 +4,4 @@ onnxruntime-gpu
 ultralytics
 timm
 onnxscript
+matplotlib
