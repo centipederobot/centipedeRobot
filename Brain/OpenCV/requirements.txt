@@ -1,5 +1,6 @@
-torch 
-torchvision 
 opencv-python 
-ultralytics 
+numpy 
+onnxruntime-gpu 
+ultralytics
 timm
+onnxscript
