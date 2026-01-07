@@ -117,8 +117,8 @@ ultimate_leader_brain/
 
 ```bash
 # ۱. کلون کردن ریپازیتوری
-git clone https://github.com/your-team/ultimate-leader-brain.git
-cd ultimate-leader-brain
+git clone https://github.com/centipederobot/centipedeRobot.git
+cd centipedeRobot\Brain\OpenCV
 
 # ۲. نصب وابستگی‌ها
 pip install -r requirements.txt
@@ -136,11 +136,11 @@ python main.py
 4. از Code Review دیگران استفاده کنید
 
 ### نام‌گذاری Branchها:
-- `feature/module1-stream` - برای ماژول ۱
-- `feature/module2-vision` - برای ماژول ۲  
-- `feature/module3-decision` - برای ماژول ۳
-- `develop` - برای یکپارچه‌سازی
-- `main` - نسخه پایدار
+- `opencv/module1-stream` - برای ماژول ۱
+- `opencv/module2-vision` - برای ماژول ۲  
+- `opencv/module3-decision` - برای ماژول ۳
+- `opencv/develop` - برای یکپارچه‌سازی
+- `opencv/main` - نسخه پایدار
 
 ## 📞 ارتباطات تیمی
 
