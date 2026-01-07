@@ -1,5 +1,7 @@
-torch 
-torchvision 
 opencv-python 
+numpy 
+onnxruntime-gpu 
 ultralytics
 timm
+onnxscript
+matplotlib
